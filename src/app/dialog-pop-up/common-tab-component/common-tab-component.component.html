@@ -1,0 +1,111 @@
+<form [formGroup]="myForm">
+    <div *ngFor="let taskDetails of taskDetails">
+        <mat-tab-group mat-stretch-tabs mat-align-tabs="center" [selectedIndex]="selectedIndex">
+            <div *ngFor="let tab of taskname">
+                <mat-tab label="{{tab}}" [disabled]="true">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="inputPassword6" class="mt-3">Task Headline</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" [readOnly]="selectedIndex == 1" formControlName="taskHeadline"
+                                    class="form-control" placeholder="Task Headline"
+                                    [ngClass]="{ 'is-invalid': submitted && f.taskHeadline.errors }">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="inputPassword6" class="mt-3">Task Names</label>
+                            </div>
+                            <div class="col">
+                                <mat-select *ngIf="selectedIndex == 0" #select multiple [formControl]="toppings"
+                                    class="form-control" (ngModelChange)="onEventDropDownChanged($event)">
+                                    <div class="select-all">
+                                        <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+                                    </div>
+                                    <div *ngFor="let food of foods">
+                                        <mat-option (click)="optionClick()" [value]="food.value">
+                                            {{food.viewValue}}
+
+                                        </mat-option>
+                                    </div>
+                                    <div style="float: right;margin:8px">
+                                        <button mat-raised-button tabindex="-1" type="button" color="primary"
+                                            (click)="select.close()">Apply</button>
+                                    </div>
+                                </mat-select>
+                                <input type="text" *ngIf="selectedIndex == 1" value="{{taskDetails.taskNames}}"
+                                    [readOnly]="selectedIndex == 1" class="form-control" placeholder="Task Headline">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="inputPassword6" class="mt-3">Date</label>
+                            </div>
+                            <div class="col-4">
+                                <input [readonly]="selectedIndex==1" class="form-control " [matDatepicker]="StartDate"
+                                    formControlName="date" placeholder="Start date *" [min]="yesterday"
+                                    [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
+
+
+                            </div>
+                            <div class="col">
+                                <mat-datepicker-toggle matSuffix *ngIf="selectedIndex==0"
+                                    [for]="StartDate"></mat-datepicker-toggle>
+                                <mat-datepicker #StartDate></mat-datepicker>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="inputPassword6" class="mt-3">Time</label>
+                            </div>
+                            <div class="col-3">
+                                <div *ngIf="selectedIndex == 0">
+                                    <input class="form-control " formControlName="time" [ngxTimepicker]="picker"
+                                        [ngClass]="{ 'is-invalid': submitted && f.time.errors }">
+                                    <ngx-material-timepicker #picker></ngx-material-timepicker>
+                                </div>
+                                <input type="text" *ngIf="selectedIndex == 1" value="{{taskDetails.time}}"
+                                    [readOnly]="selectedIndex == 1" class="form-control" placeholder="Task Headline">
+
+                            </div>
+                            <div class="col-1">
+                                <label for="inputPassword6" class="mt-2">Zone</label>
+                            </div>
+                            <div class="col-5">
+                                <input [readOnly]="selectedIndex == 1" formControlName="zone" type="text"
+                                    placeholder="Select " aria-label="Number" class="form-control"
+                                    [matAutocomplete]="auto" (keyup)="getDropdownList($event)"
+                                    [ngClass]="{ 'is-invalid': submitted && f.zone.errors }">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptions " [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="inputPassword6" class="mt-3">Comments</label>
+                            </div>
+                            <div class="col">
+                                <textarea [readOnly]="selectedIndex == 1" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"
+                                    formControlName="comments" placeholder="Add Comments..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float: right;margin-top: 8px;">
+                        <button mat-raised-button tabindex="-1" type="button" color="primary" *ngIf="selectedIndex == 0"
+                            (click)='nextStep()'>Next</button>
+                        <button mat-raised-button tabindex="-1" type="button" color="warn" *ngIf="selectedIndex == 1"
+                            (click)='previousStep()'>Previous</button>
+                    </div>
+                </mat-tab>
+            </div>
+        </mat-tab-group>
+    </div>
+</form>

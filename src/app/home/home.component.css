@@ -1,0 +1,24 @@
+.container{
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+}
+
+.btn-open-form{
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+}
+
+::ng-deep .cdk-overlay-container {
+  /* Do you changes here */
+  z-index: 0!important;
+}
