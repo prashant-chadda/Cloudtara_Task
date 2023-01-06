@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
   openDialog() {
     this.dialog.open(DialogPopUpComponent , {
-      width: '90%',
+      width: '70%',
       maxWidth: '90%',
       height:'auto'
   });

@@ -46,7 +46,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatAutocompleteModule,
     MatCheckboxModule,
     MatSelectModule
-    
+  
   ],
   providers: [CommonTabComponentComponent],
   bootstrap: [AppComponent]
